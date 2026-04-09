@@ -3,10 +3,10 @@ function setup() {
 canvas =createCanvas(windowWidth, windowHeight);
  canvas.position(0,0);
  canvas.style('z-index','-1');
-createCanvas(600, 600);
+createCanvas(400, 400);
  background("black");
  stroke("white");
- createCanvas(600, 600);
+ createCanvas(400, 400);
 }
 let x;
 let y;
