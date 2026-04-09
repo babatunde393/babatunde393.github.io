@@ -1,12 +1,12 @@
 var canvas;
 function setup() {
-canvas =createCanvas(windowWidth, windowHeight);
+canvas =createCanvas(Width / 2, Height / 2);
  canvas.position(0,0);
  canvas.style('z-index','-1');
-createCanvas(400, 600);
+createCanvas(600, 600);
  background("black");
  stroke("white");
- createCanvas(400, 600);
+ createCanvas(600, 600);
 }
 let x;
 let y;
