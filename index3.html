@@ -123,13 +123,20 @@
       canvas.parent("gameContainer");
 
       frameRate(10);
+      noLoop();
     
 
       cX = [35,25,15];
       cY = [15,15,15];
 
       plotFood();
-
+    }
+    function keyPressed() {
+  if (keyCode === RIGHT_ARROW && directionIndex !== 2) directionIndex = 0;
+  if (keyCode === DOWN_ARROW && directionIndex !== 3) directionIndex = 1;
+  if (keyCode === LEFT_ARROW && directionIndex !== 0) directionIndex = 2;
+  if (keyCode === UP_ARROW && directionIndex !== 1) directionIndex = 3;
+}
       // buttons
       let controls = select("#controls");
 
@@ -168,7 +175,7 @@
         }
 
         // collisions
-        if (cX[0] < 0 || cX[0] > width || cY[0] < 0 || cY[0] > height) {
+        if (cX[0] < 0 || cX[0] >= width || cY[0] < 0 || cY[0] >= height) {
           gameOver = true;
           noLoop();
         }
