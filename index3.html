@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html> 
 <head> 
-  <title>Work in Progress</title> 
+<title>Widget Page</title>
 
-  <!-- ✅ p5.js REQUIRED -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js"></script>
 
@@ -14,7 +13,6 @@
       font-family: Arial, sans-serif;
     }
 
-    /* ✅ Modern layout */
     #defaultBlock { 
       display: flex; 
       flex-wrap: wrap;
@@ -51,7 +49,7 @@
   <main id="defaultBlock"> 
     <h2>babatunde393's Widget Page</h2> 
 
-    <!-- Weather widget -->
+   
     <a class="weatherwidget-io" 
       href="https://forecast7.com/en/6d523d38/lagos/" 
       data-label_1="LAGOS" 
@@ -72,7 +70,7 @@
       }(document,'script','weatherwidget-io-js');
     </script>
 
-    <!-- Snake Game -->
+    
     <div id="block1" class="block"> 
       <h2>Snake Game</h2> 
 
@@ -122,7 +120,7 @@
 
         function setup() {
           let canvas = createCanvas(380, 350);
-          canvas.parent("block1"); // ✅ keep inside box
+          canvas.parent("block1"); 
 
           frameRate(10);
           noLoop();
@@ -240,13 +238,13 @@
       </script>
     </div>
 
-    <!-- Image block -->
+    
     <div id="block2" class="block"> 
       <h2>Birchmount Park School</h2>
       <img src="bpci.jpg" width="100%">
     </div> 
 
-    <!-- Calendar -->
+    
     <div id="block3" class="block">
       <h2>April Calendar 2026</h2>
       <iframe
