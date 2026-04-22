@@ -91,8 +91,17 @@
       let foodX;
       let foodY;
 
+      let startBtn, rightBtn, downBtn, leftBtn, upBtn;
+
       let score = 0;
       let gameOver = false;
+
+      let song, bell; 
+
+      function preload() {
+      song = loadSound("dk.mp3");
+      bell = loadSound("dk_powerup.mp3");
+      }
 
       function keyPressed() {
         if (keyCode === RIGHT_ARROW && directionIndex != 2) directionIndex = 0;
@@ -101,11 +110,27 @@
         if (keyCode === UP_ARROW && directionIndex != 1) directionIndex = 3;
       }
 
+      function rightButton() { if (directionIndex != 2) directionIndex = 0; }
+      function downButton() { if (directionIndex != 3) directionIndex = 1; }
+      function leftButton() { if (directionIndex != 0) directionIndex = 2; }
+      function upButton() { if (directionIndex != 1) directionIndex = 3; }
+
+      function startGame() {
+      gameOver = false;
+      score = 0;
+      len = 3;
+      plotFood();
+      loop();
+      if (!song.isPlaying()) 
+      song.loop();
+      }
+
       function setup() {
         let canvas = createCanvas(400, 400);
         canvas.parent("block1");
 
         frameRate(10);
+        noLoop();
 
         cX[0] = 35; cY[0] = 15;
         cX[1] = 25; cY[1] = 15;
@@ -128,7 +153,8 @@
             cX[i] = cX[i - 1];
             cY[i] = cY[i - 1];
 
-            if (cX[0] < 0 || cX[0] >= width || cY[0] < 0 || cY[0] >= height) {
+            if (cX[0] < 0 || cX[0] >= width || 
+                cY[0] < 0 || cY[0] >= height) {
             gameOver = true;
             }
           }
