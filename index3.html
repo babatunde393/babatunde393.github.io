@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html> 
 <head> 
-<title>Widget Page</title>
+  <title>Widget Page</title> 
 
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js"></script>
 
@@ -22,10 +23,11 @@
     } 
 
     .block { 
-      height: 470px; 
+      height: 500px; 
       width: 400px; 
       padding: 10px; 
       box-sizing: border-box;
+      position: relative;
     } 
 
     #block1 { background-color: #FFA500; } 
@@ -34,12 +36,20 @@
 
     h2 {
       text-align: center;
-      margin-top: 0;
+      margin: 5px 0;
     }
 
     main > h2 {
       width: 100%;
       color: white;
+    }
+
+    
+    .controls {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
     }
   </style>
 </head> 
@@ -49,12 +59,11 @@
   <main id="defaultBlock"> 
     <h2>babatunde393's Widget Page</h2> 
 
-   
+    
     <a class="weatherwidget-io" 
       href="https://forecast7.com/en/6d523d38/lagos/" 
       data-label_1="LAGOS" 
-      data-label_2="WEATHER" 
-      data-theme="original">
+      data-label_2="WEATHER">
       LAGOS WEATHER
     </a>
 
@@ -73,172 +82,11 @@
     
     <div id="block1" class="block"> 
       <h2>Snake Game</h2> 
-
-      <script>
-        let xDirectionArray = [1, 0, -1, 0];
-        let yDirectionArray = [0, 1, 0, -1];
-        let directionIndex = 0;
-
-        let cX = [], cY = [];
-        let len = 3;
-        let diameter = 10;
-
-        let foodX, foodY;
-
-        let startBtn, rightBtn, downBtn, leftBtn, upBtn;
-
-        let score = 0;
-        let gameOver = false;
-
-        let song, bell; 
-
-        function preload() {
-          song = loadSound("dk.mp3");
-          bell = loadSound("dk_powerup.mp3");
-        }
-
-        function keyPressed() {
-          if (keyCode === RIGHT_ARROW && directionIndex != 2) directionIndex = 0;
-          if (keyCode === DOWN_ARROW && directionIndex != 3) directionIndex = 1;
-          if (keyCode === LEFT_ARROW && directionIndex != 0) directionIndex = 2; 
-          if (keyCode === UP_ARROW && directionIndex != 1) directionIndex = 3;
-        }
-
-        function rightButton() { if (directionIndex != 2) directionIndex = 0; }
-        function downButton() { if (directionIndex != 3) directionIndex = 1; }
-        function leftButton() { if (directionIndex != 0) directionIndex = 2; }
-        function upButton() { if (directionIndex != 1) directionIndex = 3; }
-
-        function startGame() {
-          gameOver = false;
-          score = 0;
-          len = 3;
-          plotFood();
-          loop();
-          if (song && !song.isPlaying()) song.loop();
-        }
-
-        function setup() {
-          let canvas = createCanvas(380, 350);
-          canvas.parent("block1"); 
-
-          frameRate(10);
-          noLoop();
-
-          cX[0] = 35; cY[0] = 15;
-          cX[1] = 25; cY[1] = 15;
-          cX[2] = 15; cY[2] = 15;
-
-          plotFood();
-
-          startBtn = createButton("Start");
-          startBtn.parent("block1");
-          startBtn.mouseClicked(startGame);
-
-          rightBtn = createButton("D");
-          rightBtn.parent("block1");
-          rightBtn.mousePressed(rightButton);
-
-          downBtn = createButton("S");
-          downBtn.parent("block1");
-          downBtn.mousePressed(downButton);
-
-          leftBtn = createButton("A");
-          leftBtn.parent("block1");
-          leftBtn.mousePressed(leftButton);
-
-          upBtn = createButton("W");
-          upBtn.parent("block1");
-          upBtn.mousePressed(upButton);
-        }
-
-        function plotFood() {
-          let success = false;
-          while (!success) {
-            foodX = round(random(5, 380));
-            foodX -= foodX % 10;
-            foodX += 5;
-
-            foodY = round(random(5, 350));
-            foodY -= foodY % 10;
-            foodY += 5;
-
-            success = true;
-            for (let i = 0; i < len; i++) {
-              if (cX[i] == foodX && cY[i] == foodY) {
-                success = false;
-                break;
-              }
-            }
-          }
-        }
-
-        function crossOver() {
-          for (let i = 1; i < len; i++) {
-            if (cX[0] == cX[i] && cY[0] == cY[i]) {
-              gameOver = true;
-              noLoop();
-              if (song) song.stop();
-            }
-          }
-        }
-
-        function wallCollision() {
-          if (cX[0] < 0 || cX[0] > width || cY[0] < 0 || cY[0] > height) {
-            gameOver = true;
-            noLoop();
-            if (song) song.stop();
-          }
-        }
-
-        function caterpillar() {
-          if (cX[0] == foodX && cY[0] == foodY) {
-            plotFood();
-            len++;
-            score++;
-            if (bell) bell.play();
-          }
-
-          for (let i = len - 1; i > 0; i--) {
-            cX[i] = cX[i - 1];
-            cY[i] = cY[i - 1];
-          }
-
-          cX[0] += xDirectionArray[directionIndex] * 10;
-          cY[0] += yDirectionArray[directionIndex] * 10;
-
-          for (let i = 0; i < len; i++) {
-            fill("green");
-            circle(cX[i], cY[i], diameter);
-          }
-        }
-
-        function draw() {
-          background("black");
-
-          if (!gameOver) {
-            caterpillar();
-            crossOver();
-            wallCollision();
-
-            fill("red");
-            circle(foodX, foodY, 10);
-          }
-
-          fill("white");
-          textSize(16);
-          text('Score: ' + score, 10, 10);
-
-          if (gameOver) {
-            textSize(30);
-            textAlign(CENTER, CENTER);
-            text("GAME OVER!", width/2, height/2);
-          }
-        }
-      </script>
+      <div id="gameContainer"></div>
+      <div class="controls" id="controls"></div>
     </div>
 
-    
+  
     <div id="block2" class="block"> 
       <h2>Birchmount Park School</h2>
       <img src="bpci.jpg" width="100%">
@@ -249,13 +97,108 @@
       <h2>April Calendar 2026</h2>
       <iframe
         src="https://calendar.google.com/calendar/embed?src=348566209%40tdsb.ca&ctz=America%2FToronto" 
-        style="border: 0"
+        style="border:0"
         width="100%" 
         height="250">
       </iframe>
     </div> 
 
   </main> 
+
+ 
+  <script>
+    let xDirectionArray = [1, 0, -1, 0];
+    let yDirectionArray = [0, 1, 0, -1];
+    let directionIndex = 0;
+
+    let cX = [], cY = [];
+    let len = 3;
+    let foodX, foodY;
+
+    let score = 0;
+    let gameOver = false;
+
+    function setup() {
+      let canvas = createCanvas(360, 300);
+      canvas.parent("gameContainer");
+
+      frameRate(10);
+      noLoop();
+
+      cX = [35,25,15];
+      cY = [15,15,15];
+
+      plotFood();
+
+      // buttons
+      let controls = select("#controls");
+
+      createButton("Start").parent(controls).mousePressed(startGame);
+      createButton("⬆").parent(controls).mousePressed(()=>directionIndex=3);
+      createButton("⬇").parent(controls).mousePressed(()=>directionIndex=1);
+      createButton("⬅").parent(controls).mousePressed(()=>directionIndex=2);
+      createButton("➡").parent(controls).mousePressed(()=>directionIndex=0);
+    }
+
+    function startGame() {
+      gameOver = false;
+      score = 0;
+      len = 3;
+      loop();
+    }
+
+    function plotFood() {
+      foodX = floor(random(0,36))*10;
+      foodY = floor(random(0,30))*10;
+    }
+
+    function draw() {
+      background(0);
+
+      if (!gameOver) {
+        cX.unshift(cX[0] + xDirectionArray[directionIndex]*10);
+        cY.unshift(cY[0] + yDirectionArray[directionIndex]*10);
+
+        if (cX[0] === foodX && cY[0] === foodY) {
+          score++;
+          plotFood();
+        } else {
+          cX.pop();
+          cY.pop();
+        }
+
+        // collisions
+        if (cX[0] < 0 || cX[0] > width || cY[0] < 0 || cY[0] > height) {
+          gameOver = true;
+          noLoop();
+        }
+
+        for (let i=1;i<cX.length;i++){
+          if(cX[0]===cX[i] && cY[0]===cY[i]){
+            gameOver=true;
+            noLoop();
+          }
+        }
+      }
+
+      fill("green");
+      for (let i=0;i<cX.length;i++){
+        rect(cX[i],cY[i],10,10);
+      }
+
+      fill("red");
+      rect(foodX,foodY,10,10);
+
+      fill("white");
+      text("Score: "+score,10,15);
+
+      if(gameOver){
+        textAlign(CENTER);
+        textSize(20);
+        text("GAME OVER",width/2,height/2);
+      }
+    }
+  </script>
 
 </body> 
 </html>
