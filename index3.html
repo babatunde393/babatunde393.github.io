@@ -136,7 +136,6 @@
   if (keyCode === DOWN_ARROW && directionIndex !== 3) directionIndex = 1;
   if (keyCode === LEFT_ARROW && directionIndex !== 0) directionIndex = 2;
   if (keyCode === UP_ARROW && directionIndex !== 1) directionIndex = 3;
-}
       // buttons
       let controls = select("#controls");
 
@@ -145,8 +144,9 @@
       createButton("⬇").parent(controls).mousePressed(()=>directionIndex=1);
       createButton("⬅").parent(controls).mousePressed(()=>directionIndex=2);
       createButton("➡").parent(controls).mousePressed(()=>directionIndex=0);
+      }
     }
-
+    
     function startGame() {
       gameOver = false;
       score = 0;
