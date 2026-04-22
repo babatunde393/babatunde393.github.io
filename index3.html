@@ -137,7 +137,39 @@
         cX[2] = 15; cY[2] = 15;
 
         plotFood();
-      }
+
+ startBtn = createButton("Start");
+ startBtn.mouseClicked(startGame);
+ startBtn.size(120, 50);
+ startBtn.position(10, 420);
+ startBtn.style("font-family", "Comic Sans MS");
+ startBtn.style("font-size", "28px");
+  
+ rightBtn = createButton("D");
+ rightBtn.mousePressed(rightButton);
+ rightBtn.size(60, 30);
+ rightBtn.position(310, 440);
+ rightBtn.style("font-family", "Comic Sans MS");
+  
+ downBtn = createButton("S");
+ downBtn.mousePressed(downButton);
+ downBtn.size(60, 30);
+ downBtn.position(230, 460);
+ downBtn.style("font-family", "Comic Sans MS");
+ 
+ leftBtn = createButton("A");
+ leftBtn.mousePressed(leftButton);
+ leftBtn.size(60, 30);
+ leftBtn.position(150, 440);
+ leftBtn.style("font-family", "Comic Sans MS");
+ 
+ upBtn = createButton("W");
+ upBtn.mousePressed(upButton);
+ upBtn.size(60, 30);
+ upBtn.position(230, 410);
+ upBtn.style("font-family", "Comic Sans MS");
+ 
+}
 
       function plotFood() {
         foodX = floor(random(0,40)) * 10;
