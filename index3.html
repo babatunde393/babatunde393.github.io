@@ -77,7 +77,6 @@
    
     <div id="block1"> 
       <h2>Snake Game</h2> 
-      <br> 
 
       <script>
       let xDirectionArray = [1, 0, -1, 0];
@@ -103,7 +102,7 @@
       }
 
       function setup() {
-        let canvas = createCanvas(400, 500);
+        let canvas = createCanvas(400, 400);
         canvas.parent("block1");
 
         frameRate(10);
@@ -116,8 +115,8 @@
       }
 
       function plotFood() {
-        foodX = round(random(5,400));
-        foodY = round(random(5,400));
+        foodX = round(random(0,40)) * 10;
+        foodY = round(random(0,40)) * 10;
       }
 
       function draw() {
